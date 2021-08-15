@@ -1,0 +1,419 @@
+----------------------------------------
+/var/log/eb-engine.log
+----------------------------------------
+2021/08/14 23:38:12.597754 [INFO] Running command /bin/sh -c systemctl daemon-reload
+2021/08/14 23:38:12.696944 [INFO] Running command /bin/sh -c systemctl reset-failed
+2021/08/14 23:38:12.701711 [INFO] Running command /bin/sh -c systemctl is-enabled eb-app.target
+2021/08/14 23:38:12.705596 [INFO] Running command /bin/sh -c systemctl enable eb-app.target
+2021/08/14 23:38:12.803704 [INFO] Running command /bin/sh -c systemctl start eb-app.target
+2021/08/14 23:38:12.809283 [INFO] Running command /bin/sh -c systemctl enable web.service
+2021/08/14 23:38:12.908671 [INFO] Running command /bin/sh -c systemctl show -p PartOf web.service
+2021/08/14 23:38:12.914533 [INFO] Running command /bin/sh -c systemctl is-active web.service
+2021/08/14 23:38:12.918306 [INFO] Running command /bin/sh -c systemctl start web.service
+2021/08/14 23:38:12.937353 [INFO] Executing instruction: start X-Ray
+2021/08/14 23:38:12.937369 [INFO] X-Ray is not enabled.
+2021/08/14 23:38:12.937375 [INFO] Executing instruction: start proxy with new configuration
+2021/08/14 23:38:12.937421 [INFO] Running command /bin/sh -c /usr/sbin/nginx -t -c /var/proxy/staging/nginx/nginx.conf
+2021/08/14 23:38:12.956983 [INFO] Running command /bin/sh -c cp -rp /var/proxy/staging/nginx/* /etc/nginx
+2021/08/14 23:38:12.963145 [INFO] Running command /bin/sh -c systemctl show -p PartOf nginx.service
+2021/08/14 23:38:12.975762 [INFO] Running command /bin/sh -c systemctl daemon-reload
+2021/08/14 23:38:13.123463 [INFO] Running command /bin/sh -c systemctl reset-failed
+2021/08/14 23:38:13.130138 [INFO] Running command /bin/sh -c systemctl show -p PartOf nginx.service
+2021/08/14 23:38:13.140208 [INFO] Running command /bin/sh -c systemctl is-active nginx.service
+2021/08/14 23:38:13.149429 [INFO] Running command /bin/sh -c systemctl start nginx.service
+2021/08/14 23:38:13.234884 [INFO] Executing instruction: configureSqsd
+2021/08/14 23:38:13.234906 [INFO] This is a web server environment instance, skip configure sqsd daemon ...
+2021/08/14 23:38:13.234911 [INFO] Executing instruction: startSqsd
+2021/08/14 23:38:13.234916 [INFO] This is a web server environment instance, skip start sqsd daemon ...
+2021/08/14 23:38:13.234920 [INFO] Executing instruction: Track pids in healthd
+2021/08/14 23:38:13.234925 [INFO] This is an enhanced health env...
+2021/08/14 23:38:13.234974 [INFO] Running command /bin/sh -c systemctl show -p ConsistsOf aws-eb.target | cut -d= -f2
+2021/08/14 23:38:13.246659 [INFO] healthd.service cfn-hup.service nginx.service
+
+2021/08/14 23:38:13.246681 [INFO] Running command /bin/sh -c systemctl show -p ConsistsOf eb-app.target | cut -d= -f2
+2021/08/14 23:38:13.257361 [INFO] web.service
+
+2021/08/14 23:38:13.257553 [INFO] Executing instruction: RunConfigDeployPostDeployHooks
+2021/08/14 23:38:13.257570 [INFO] The dir .platform/confighooks/postdeploy/ does not exist in the application. Skipping this step...
+2021/08/14 23:38:13.257575 [INFO] Executing cleanup logic
+2021/08/14 23:38:13.257699 [INFO] CommandService Response: {"status":"SUCCESS","api_version":"1.0","results":[{"status":"SUCCESS","msg":"Engine execution has succeeded.","returncode":0,"events":[{"msg":"Instance deployment: You didn't specify a Node.js version in the 'package.json' file in your source bundle. The deployment didn't install a specific Node.js version.","timestamp":1628984276,"severity":"INFO"},{"msg":"Instance deployment completed successfully.","timestamp":1628984293,"severity":"INFO"}]}]}
+
+2021/08/14 23:38:13.257884 [INFO] Platform Engine finished execution on command: config-deploy
+
+2021/08/15 00:51:03.689554 [INFO] Starting...
+2021/08/15 00:51:03.689657 [INFO] Starting EBPlatform-PlatformEngine
+2021/08/15 00:51:03.689676 [INFO] reading event message file
+2021/08/15 00:51:03.689807 [INFO] no eb envtier info file found, skip loading env tier info.
+2021/08/15 00:51:03.689885 [INFO] Engine received EB command cfn-hup-exec
+
+2021/08/15 00:51:03.788246 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:us-east-1:334985757559:stack/awseb-e-yd6zbpte6x-stack/a1827120-fd55-11eb-a17d-1214c28caebf -r AWSEBAutoScalingGroup --region us-east-1
+2021/08/15 00:51:04.094712 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:us-east-1:334985757559:stack/awseb-e-yd6zbpte6x-stack/a1827120-fd55-11eb-a17d-1214c28caebf -r AWSEBBeanstalkMetadata --region us-east-1
+2021/08/15 00:51:04.398653 [INFO] checking whether command tail-log is applicable to this instance...
+2021/08/15 00:51:04.398670 [INFO] this command is applicable to the instance, thus instance should execute command
+2021/08/15 00:51:04.398675 [INFO] Engine command: (tail-log)
+
+2021/08/15 00:51:04.398734 [INFO] Executing instruction: GetTailLogs
+2021/08/15 00:51:04.398739 [INFO] Tail Logs...
+2021/08/15 00:51:04.399055 [INFO] Running command /bin/sh -c tail -n 100 /var/log/nginx/error.log
+2021/08/15 00:51:04.401109 [INFO] Running command /bin/sh -c tail -n 100 /var/log/eb-engine.log
+2021/08/15 00:51:04.402741 [INFO] Running command /bin/sh -c tail -n 100 /var/log/web.stdout.log
+2021/08/15 00:51:04.406834 [INFO] Running command /bin/sh -c tail -n 100 /var/log/nginx/access.log
+2021/08/15 00:51:04.486439 [INFO] Executing cleanup logic
+2021/08/15 00:51:04.486555 [INFO] CommandService Response: {"status":"SUCCESS","api_version":"1.0","results":[{"status":"SUCCESS","msg":"Engine execution has succeeded.","returncode":0,"events":[{"msg":"Instance deployment completed successfully.","timestamp":1628988664,"severity":"INFO"}]}]}
+
+2021/08/15 00:51:04.486734 [INFO] Platform Engine finished execution on command: tail-log
+
+2021/08/15 00:54:14.198278 [INFO] Starting...
+2021/08/15 00:54:14.198327 [INFO] Starting EBPlatform-PlatformEngine
+2021/08/15 00:54:14.198345 [INFO] reading event message file
+2021/08/15 00:54:14.198449 [INFO] no eb envtier info file found, skip loading env tier info.
+2021/08/15 00:54:14.198528 [INFO] Engine received EB command cfn-hup-exec
+
+2021/08/15 00:54:14.299902 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:us-east-1:334985757559:stack/awseb-e-yd6zbpte6x-stack/a1827120-fd55-11eb-a17d-1214c28caebf -r AWSEBAutoScalingGroup --region us-east-1
+2021/08/15 00:54:14.597014 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:us-east-1:334985757559:stack/awseb-e-yd6zbpte6x-stack/a1827120-fd55-11eb-a17d-1214c28caebf -r AWSEBBeanstalkMetadata --region us-east-1
+2021/08/15 00:54:14.887869 [INFO] checking whether command tail-log is applicable to this instance...
+2021/08/15 00:54:14.887886 [INFO] this command is applicable to the instance, thus instance should execute command
+2021/08/15 00:54:14.887891 [INFO] Engine command: (tail-log)
+
+2021/08/15 00:54:14.887946 [INFO] Executing instruction: GetTailLogs
+2021/08/15 00:54:14.887951 [INFO] Tail Logs...
+2021/08/15 00:54:14.888242 [INFO] Running command /bin/sh -c tail -n 100 /var/log/web.stdout.log
+2021/08/15 00:54:14.890224 [INFO] Running command /bin/sh -c tail -n 100 /var/log/nginx/access.log
+2021/08/15 00:54:14.891882 [INFO] Running command /bin/sh -c tail -n 100 /var/log/nginx/error.log
+2021/08/15 00:54:14.893612 [INFO] Running command /bin/sh -c tail -n 100 /var/log/eb-engine.log
+2021/08/15 00:54:14.977715 [INFO] Executing cleanup logic
+2021/08/15 00:54:14.977850 [INFO] CommandService Response: {"status":"SUCCESS","api_version":"1.0","results":[{"status":"SUCCESS","msg":"Engine execution has succeeded.","returncode":0,"events":[{"msg":"Instance deployment completed successfully.","timestamp":1628988854,"severity":"INFO"}]}]}
+
+2021/08/15 00:54:14.978042 [INFO] Platform Engine finished execution on command: tail-log
+
+2021/08/15 14:14:21.004679 [INFO] Starting...
+2021/08/15 14:14:21.004734 [INFO] Starting EBPlatform-PlatformEngine
+2021/08/15 14:14:21.004752 [INFO] reading event message file
+2021/08/15 14:14:21.004851 [INFO] no eb envtier info file found, skip loading env tier info.
+2021/08/15 14:14:21.004936 [INFO] Engine received EB command cfn-hup-exec
+
+2021/08/15 14:14:21.107797 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:us-east-1:334985757559:stack/awseb-e-yd6zbpte6x-stack/a1827120-fd55-11eb-a17d-1214c28caebf -r AWSEBAutoScalingGroup --region us-east-1
+2021/08/15 14:14:21.407136 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:us-east-1:334985757559:stack/awseb-e-yd6zbpte6x-stack/a1827120-fd55-11eb-a17d-1214c28caebf -r AWSEBBeanstalkMetadata --region us-east-1
+2021/08/15 14:14:21.690688 [INFO] checking whether command tail-log is applicable to this instance...
+2021/08/15 14:14:21.690716 [INFO] this command is applicable to the instance, thus instance should execute command
+2021/08/15 14:14:21.690721 [INFO] Engine command: (tail-log)
+
+2021/08/15 14:14:21.690774 [INFO] Executing instruction: GetTailLogs
+2021/08/15 14:14:21.690787 [INFO] Tail Logs...
+2021/08/15 14:14:21.691051 [INFO] Running command /bin/sh -c tail -n 100 /var/log/eb-engine.log
+
+
+----------------------------------------
+/var/log/web.stdout.log
+----------------------------------------
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR! Failed at the udacity-c2-restapi@1.0.0 start script.
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR! A complete log of this run can be found in:
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR!     /home/webapp/.npm/_logs/2021-08-14T23_38_14_048Z-debug.log
+Aug 14 23:38:14 ip-172-31-83-131 web: > udacity-c2-restapi@1.0.0 start /var/app/current
+Aug 14 23:38:14 ip-172-31-83-131 web: > node .
+Aug 14 23:38:14 ip-172-31-83-131 web: internal/modules/cjs/loader.js:303
+Aug 14 23:38:14 ip-172-31-83-131 web: throw err;
+Aug 14 23:38:14 ip-172-31-83-131 web: ^
+Aug 14 23:38:14 ip-172-31-83-131 web: Error: Cannot find module '/var/app/current/src/server.js'. Please verify that the package.json has a valid "main" entry
+Aug 14 23:38:14 ip-172-31-83-131 web: at tryPackage (internal/modules/cjs/loader.js:295:19)
+Aug 14 23:38:14 ip-172-31-83-131 web: at Function.Module._findPath (internal/modules/cjs/loader.js:508:18)
+Aug 14 23:38:14 ip-172-31-83-131 web: at resolveMainPath (internal/modules/run_main.js:12:25)
+Aug 14 23:38:14 ip-172-31-83-131 web: at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:54:24)
+Aug 14 23:38:14 ip-172-31-83-131 web: at internal/main/run_main_module.js:17:47 {
+Aug 14 23:38:14 ip-172-31-83-131 web: code: 'MODULE_NOT_FOUND',
+Aug 14 23:38:14 ip-172-31-83-131 web: path: '/var/app/current/package.json',
+Aug 14 23:38:14 ip-172-31-83-131 web: requestPath: '/var/app/current'
+Aug 14 23:38:14 ip-172-31-83-131 web: }
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR! code ELIFECYCLE
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR! errno 1
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR! udacity-c2-restapi@1.0.0 start: `node .`
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR! Exit status 1
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR!
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR! Failed at the udacity-c2-restapi@1.0.0 start script.
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR! A complete log of this run can be found in:
+Aug 14 23:38:14 ip-172-31-83-131 web: npm ERR!     /home/webapp/.npm/_logs/2021-08-14T23_38_14_547Z-debug.log
+Aug 14 23:38:14 ip-172-31-83-131 web: > udacity-c2-restapi@1.0.0 start /var/app/current
+Aug 14 23:38:14 ip-172-31-83-131 web: > node .
+Aug 14 23:38:15 ip-172-31-83-131 web: internal/modules/cjs/loader.js:303
+Aug 14 23:38:15 ip-172-31-83-131 web: throw err;
+Aug 14 23:38:15 ip-172-31-83-131 web: ^
+Aug 14 23:38:15 ip-172-31-83-131 web: Error: Cannot find module '/var/app/current/src/server.js'. Please verify that the package.json has a valid "main" entry
+Aug 14 23:38:15 ip-172-31-83-131 web: at tryPackage (internal/modules/cjs/loader.js:295:19)
+Aug 14 23:38:15 ip-172-31-83-131 web: at Function.Module._findPath (internal/modules/cjs/loader.js:508:18)
+Aug 14 23:38:15 ip-172-31-83-131 web: at resolveMainPath (internal/modules/run_main.js:12:25)
+Aug 14 23:38:15 ip-172-31-83-131 web: at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:54:24)
+Aug 14 23:38:15 ip-172-31-83-131 web: at internal/main/run_main_module.js:17:47 {
+Aug 14 23:38:15 ip-172-31-83-131 web: code: 'MODULE_NOT_FOUND',
+Aug 14 23:38:15 ip-172-31-83-131 web: path: '/var/app/current/package.json',
+Aug 14 23:38:15 ip-172-31-83-131 web: requestPath: '/var/app/current'
+Aug 14 23:38:15 ip-172-31-83-131 web: }
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! code ELIFECYCLE
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! errno 1
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! udacity-c2-restapi@1.0.0 start: `node .`
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! Exit status 1
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR!
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! Failed at the udacity-c2-restapi@1.0.0 start script.
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! A complete log of this run can be found in:
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR!     /home/webapp/.npm/_logs/2021-08-14T23_38_15_051Z-debug.log
+Aug 14 23:38:15 ip-172-31-83-131 web: > udacity-c2-restapi@1.0.0 start /var/app/current
+Aug 14 23:38:15 ip-172-31-83-131 web: > node .
+Aug 14 23:38:15 ip-172-31-83-131 web: internal/modules/cjs/loader.js:303
+Aug 14 23:38:15 ip-172-31-83-131 web: throw err;
+Aug 14 23:38:15 ip-172-31-83-131 web: ^
+Aug 14 23:38:15 ip-172-31-83-131 web: Error: Cannot find module '/var/app/current/src/server.js'. Please verify that the package.json has a valid "main" entry
+Aug 14 23:38:15 ip-172-31-83-131 web: at tryPackage (internal/modules/cjs/loader.js:295:19)
+Aug 14 23:38:15 ip-172-31-83-131 web: at Function.Module._findPath (internal/modules/cjs/loader.js:508:18)
+Aug 14 23:38:15 ip-172-31-83-131 web: at resolveMainPath (internal/modules/run_main.js:12:25)
+Aug 14 23:38:15 ip-172-31-83-131 web: at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:54:24)
+Aug 14 23:38:15 ip-172-31-83-131 web: at internal/main/run_main_module.js:17:47 {
+Aug 14 23:38:15 ip-172-31-83-131 web: code: 'MODULE_NOT_FOUND',
+Aug 14 23:38:15 ip-172-31-83-131 web: path: '/var/app/current/package.json',
+Aug 14 23:38:15 ip-172-31-83-131 web: requestPath: '/var/app/current'
+Aug 14 23:38:15 ip-172-31-83-131 web: }
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! code ELIFECYCLE
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! errno 1
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! udacity-c2-restapi@1.0.0 start: `node .`
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! Exit status 1
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR!
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! Failed at the udacity-c2-restapi@1.0.0 start script.
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR! A complete log of this run can be found in:
+Aug 14 23:38:15 ip-172-31-83-131 web: npm ERR!     /home/webapp/.npm/_logs/2021-08-14T23_38_15_545Z-debug.log
+Aug 14 23:38:15 ip-172-31-83-131 web: > udacity-c2-restapi@1.0.0 start /var/app/current
+Aug 14 23:38:15 ip-172-31-83-131 web: > node .
+Aug 14 23:38:16 ip-172-31-83-131 web: internal/modules/cjs/loader.js:303
+Aug 14 23:38:16 ip-172-31-83-131 web: throw err;
+Aug 14 23:38:16 ip-172-31-83-131 web: ^
+Aug 14 23:38:16 ip-172-31-83-131 web: Error: Cannot find module '/var/app/current/src/server.js'. Please verify that the package.json has a valid "main" entry
+Aug 14 23:38:16 ip-172-31-83-131 web: at tryPackage (internal/modules/cjs/loader.js:295:19)
+Aug 14 23:38:16 ip-172-31-83-131 web: at Function.Module._findPath (internal/modules/cjs/loader.js:508:18)
+Aug 14 23:38:16 ip-172-31-83-131 web: at resolveMainPath (internal/modules/run_main.js:12:25)
+Aug 14 23:38:16 ip-172-31-83-131 web: at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:54:24)
+Aug 14 23:38:16 ip-172-31-83-131 web: at internal/main/run_main_module.js:17:47 {
+Aug 14 23:38:16 ip-172-31-83-131 web: code: 'MODULE_NOT_FOUND',
+Aug 14 23:38:16 ip-172-31-83-131 web: path: '/var/app/current/package.json',
+Aug 14 23:38:16 ip-172-31-83-131 web: requestPath: '/var/app/current'
+Aug 14 23:38:16 ip-172-31-83-131 web: }
+Aug 14 23:38:16 ip-172-31-83-131 web: npm ERR! code ELIFECYCLE
+Aug 14 23:38:16 ip-172-31-83-131 web: npm ERR! errno 1
+Aug 14 23:38:16 ip-172-31-83-131 web: npm ERR! udacity-c2-restapi@1.0.0 start: `node .`
+Aug 14 23:38:16 ip-172-31-83-131 web: npm ERR! Exit status 1
+Aug 14 23:38:16 ip-172-31-83-131 web: npm ERR!
+Aug 14 23:38:16 ip-172-31-83-131 web: npm ERR! Failed at the udacity-c2-restapi@1.0.0 start script.
+Aug 14 23:38:16 ip-172-31-83-131 web: npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+Aug 14 23:38:16 ip-172-31-83-131 web: npm ERR! A complete log of this run can be found in:
+Aug 14 23:38:16 ip-172-31-83-131 web: npm ERR!     /home/webapp/.npm/_logs/2021-08-14T23_38_16_047Z-debug.log
+
+
+----------------------------------------
+/var/log/nginx/access.log
+----------------------------------------
+172.31.95.167 - - [15/Aug/2021:14:02:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:02:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:02:23 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:02:30 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:02:38 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:02:45 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:02:53 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:03:00 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:03:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:03:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:03:23 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:03:30 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:03:38 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:03:45 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:03:53 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:04:00 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:04:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:04:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:04:23 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:04:30 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:04:38 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:04:45 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:04:53 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:05:00 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:05:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:05:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:05:23 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:05:30 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:05:38 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:05:45 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:05:53 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:06:00 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:06:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:06:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:06:23 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:06:30 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:06:38 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:06:45 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:06:53 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:07:00 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:07:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:07:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:07:23 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:07:30 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:07:38 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:07:45 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:07:53 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:08:00 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:08:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:08:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:08:23 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:08:30 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:08:38 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:08:45 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:08:53 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:09:00 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:09:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:09:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:09:23 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:09:30 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:09:38 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:09:45 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:09:53 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:10:00 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:10:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:10:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:10:23 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:10:30 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:10:38 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:10:45 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:10:53 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:11:00 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:11:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:11:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:11:23 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:11:30 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:11:38 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:11:45 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:11:53 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:12:00 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:12:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:12:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:12:23 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:12:26 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36" "50.89.160.8"
+172.31.79.165 - - [15/Aug/2021:14:12:27 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://udagram-bhumi-dev-dev.us-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36" "50.89.160.8"
+172.31.79.165 - - [15/Aug/2021:14:12:30 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:12:38 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:12:45 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:12:53 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:13:00 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:13:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:13:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:13:23 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:13:30 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:13:38 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:13:45 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:13:53 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:14:00 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.95.167 - - [15/Aug/2021:14:14:08 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+172.31.79.165 - - [15/Aug/2021:14:14:15 +0000] "GET / HTTP/1.1" 502 157 "-" "ELB-HealthChecker/2.0" "-"
+
+
+----------------------------------------
+/var/log/nginx/error.log
+----------------------------------------
+2021/08/15 14:02:08 [error] 5651#5651: *14498 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:02:15 [error] 5651#5651: *14500 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:02:23 [error] 5651#5651: *14502 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:02:30 [error] 5651#5651: *14504 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:02:38 [error] 5651#5651: *14506 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:02:45 [error] 5651#5651: *14508 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:02:53 [error] 5651#5651: *14510 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:03:00 [error] 5651#5651: *14512 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:03:08 [error] 5651#5651: *14514 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:03:15 [error] 5651#5651: *14516 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:03:23 [error] 5651#5651: *14518 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:03:30 [error] 5651#5651: *14520 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:03:38 [error] 5651#5651: *14522 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:03:45 [error] 5651#5651: *14524 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:03:53 [error] 5651#5651: *14526 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:04:00 [error] 5651#5651: *14528 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:04:08 [error] 5651#5651: *14530 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:04:15 [error] 5651#5651: *14532 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:04:23 [error] 5651#5651: *14534 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:04:30 [error] 5651#5651: *14536 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:04:38 [error] 5651#5651: *14538 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:04:45 [error] 5651#5651: *14540 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:04:53 [error] 5651#5651: *14542 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:05:00 [error] 5651#5651: *14544 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:05:08 [error] 5651#5651: *14546 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:05:15 [error] 5651#5651: *14548 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:05:23 [error] 5651#5651: *14550 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:05:30 [error] 5651#5651: *14552 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:05:38 [error] 5651#5651: *14554 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:05:45 [error] 5651#5651: *14556 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:05:53 [error] 5651#5651: *14558 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:06:00 [error] 5651#5651: *14560 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:06:08 [error] 5651#5651: *14562 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:06:15 [error] 5651#5651: *14564 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:06:23 [error] 5651#5651: *14566 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:06:30 [error] 5651#5651: *14568 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:06:38 [error] 5651#5651: *14570 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:06:45 [error] 5651#5651: *14572 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:06:53 [error] 5651#5651: *14574 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:07:00 [error] 5651#5651: *14576 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:07:08 [error] 5651#5651: *14578 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:07:15 [error] 5651#5651: *14580 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:07:23 [error] 5651#5651: *14582 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:07:30 [error] 5651#5651: *14584 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:07:38 [error] 5651#5651: *14586 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:07:45 [error] 5651#5651: *14588 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:07:53 [error] 5651#5651: *14590 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:08:00 [error] 5651#5651: *14592 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:08:08 [error] 5651#5651: *14594 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:08:15 [error] 5651#5651: *14596 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:08:23 [error] 5651#5651: *14598 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:08:30 [error] 5651#5651: *14600 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:08:38 [error] 5651#5651: *14602 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:08:45 [error] 5651#5651: *14604 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:08:53 [error] 5651#5651: *14606 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:09:00 [error] 5651#5651: *14608 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:09:08 [error] 5651#5651: *14610 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:09:15 [error] 5651#5651: *14612 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:09:23 [error] 5651#5651: *14614 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:09:30 [error] 5651#5651: *14616 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:09:38 [error] 5651#5651: *14618 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:09:45 [error] 5651#5651: *14620 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:09:53 [error] 5651#5651: *14622 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:10:00 [error] 5651#5651: *14624 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:10:08 [error] 5651#5651: *14626 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:10:15 [error] 5651#5651: *14628 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:10:23 [error] 5651#5651: *14630 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:10:30 [error] 5651#5651: *14632 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:10:38 [error] 5651#5651: *14634 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:10:45 [error] 5651#5651: *14636 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:10:53 [error] 5651#5651: *14638 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:11:00 [error] 5651#5651: *14640 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:11:08 [error] 5651#5651: *14642 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:11:15 [error] 5651#5651: *14644 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:11:23 [error] 5651#5651: *14646 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:11:30 [error] 5651#5651: *14648 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:11:38 [error] 5651#5651: *14650 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:11:45 [error] 5651#5651: *14652 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:11:53 [error] 5651#5651: *14654 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:12:00 [error] 5651#5651: *14656 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:12:08 [error] 5651#5651: *14658 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:12:15 [error] 5651#5651: *14660 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:12:23 [error] 5651#5651: *14662 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:12:26 [error] 5651#5651: *14664 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "udagram-bhumi-dev-dev.us-east-1.elasticbeanstalk.com"
+2021/08/15 14:12:27 [error] 5651#5651: *14664 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8080/favicon.ico", host: "udagram-bhumi-dev-dev.us-east-1.elasticbeanstalk.com", referrer: "http://udagram-bhumi-dev-dev.us-east-1.elasticbeanstalk.com/"
+2021/08/15 14:12:30 [error] 5651#5651: *14667 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:12:38 [error] 5651#5651: *14669 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:12:45 [error] 5651#5651: *14671 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:12:53 [error] 5651#5651: *14673 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:13:00 [error] 5651#5651: *14675 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:13:08 [error] 5651#5651: *14677 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:13:15 [error] 5651#5651: *14679 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:13:23 [error] 5651#5651: *14681 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:13:30 [error] 5651#5651: *14683 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:13:38 [error] 5651#5651: *14685 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:13:45 [error] 5651#5651: *14687 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:13:53 [error] 5651#5651: *14689 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:14:00 [error] 5651#5651: *14691 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:14:08 [error] 5651#5651: *14693 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.95.167, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+2021/08/15 14:14:15 [error] 5651#5651: *14695 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.79.165, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "172.31.83.131"
+
